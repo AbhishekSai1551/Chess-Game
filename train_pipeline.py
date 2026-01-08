@@ -3,31 +3,29 @@ import subprocess
 import glob
 
 # CONFIGURATION
-PLAYERS=["Carlsen","Nakamura","Firouzja","Caruana","Erigaisi","Gukesh","Keymar","Giri","Praggnanandhaa","Wei"] # Add all 10 names (must match filenames in data/raw_pgns/)
-BASE_MODEL="tools/maia-chess/models/maia-1900.pb.gz"
-EPOCHS=5
+PLAYERS = ["Carlsen","Nakamura","Caruana","Erigaisi","Firouzja","Giri","Gukesh","Keymar","Praggnanandhaa","Wei"]
+BASE_MODEL = "tools/maia-chess/models/maia-1900.pb.gz"
+EPOCHS = 5
 
 def run_command(cmd):
     print(f"[EXEC] {cmd}")
     subprocess.check_call(cmd, shell=True)
 
-#Processing pgns to train
+#Convert PGNs into Lc0 binary training data
 def process_pgns():
     for player in PLAYERS:
         print(f"\n--- Processing {player} ---")
-        input_pgn = f"expert_config/data//{player}.pgn"
+        input_pgn = f"data/expert_pgn/{player}.pgn"
         output_dir = f"data/training_chunks/{player}"
-        
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
-        #Clean PGN
-        clean_pgn = f"data/raw_pgns/{player}_clean.pgn"
-        #No duplicate outputs
-        run_command(f"pgn-extract -D -C -N -Worg {input_pgn} > {clean_pgn}")
-        # 2. Convert to Training Chunks(moves to tensors)
-        run_command(f"./trainingdata-tool --supervised --files-per-dir 100 --output {output_dir} {clean_pgn}")
+        clean_pgn = f"data/expert_pgn/{player}_clean.pgn"
+        #NO duplicates output 
+        run_command(f"pgn-extract -D -C -N -Wsan {input_pgn} > {clean_pgn}")
+        #Convert to Training Chunks (moves to tensors)
+        run_command(f"./training-tool-bin --supervised --files-per-dir 100 --output {output_dir} {clean_pgn}")
 
-#Fine-tuning for each player
+#Fine-tune the Maia model for each player
 def train_models():
     for player in PLAYERS:
         print(f"\n--- Training Model for {player} ---")
