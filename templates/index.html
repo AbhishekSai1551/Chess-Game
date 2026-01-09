@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chess Mimic Project</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- CSS for Chessboard.js -->
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <h1>Play Against AI</h1>
+    <div id="myBoard" style="width: 400px"></div>
+    <div id="status">Status: Your Turn (White)</div>
+    <div id="pgn"></div>
+</div>
+
+<!-- JQuery (Required by Chessboard.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- Chessboard.js (Visuals) -->
+<script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+<!-- Chess.js (Logic/Validation) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<!-- Your Custom Game Logic -->
+<script src="/static/js/game.js"></script>
+
+</body>
+</html>

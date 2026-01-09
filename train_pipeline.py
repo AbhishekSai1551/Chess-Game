@@ -3,7 +3,7 @@ import subprocess
 import glob
 
 # CONFIGURATION
-PLAYERS = ["Carlsen","Nakamura","Caruana","Erigaisi","Firouzja","Giri","Gukesh","Keymar","Praggnanandhaa","Wei"]
+PLAYERS = ["Carlsen","Nakamura","Caruana","Erigaisi","Firouzja","Giri","Gukesh","Keymer","Praggnanandhaa","Wei"]
 BASE_MODEL = "tools/maia-chess/models/maia-1900.pb.gz"
 EPOCHS = 5
 
